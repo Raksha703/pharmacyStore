@@ -15,15 +15,11 @@ public class CategoryDaoImpl implements CategoryDao {
 
 	@Override
 	public boolean addCategory(Category category) {
-		try (Connection con = 
-DbConnection.getDatabaseConnection()){
+		try (Connection con = DbConnection.getDatabaseConnection()){
 			
-			PreparedStatement pst = 
-con.prepareStatement("INSERT INTO category"
-+ "(categoryName) VALUES(?)");
+			PreparedStatement pst = con.prepareStatement("INSERT INTO category (categoryName) VALUES(?)");
 			
-			pst.setString(1, 
-					category.getCategoryName());
+			pst.setString(1, category.getCategoryName());
 			
 			int count = pst.executeUpdate();
 			
@@ -32,8 +28,7 @@ con.prepareStatement("INSERT INTO category"
 			else
 				return false;
 			
-		} catch(SQLException | 
-				NullPointerException exc) {
+		} catch(SQLException | NullPointerException exc) {
 			exc.printStackTrace();
 			return false;
 		}
@@ -41,12 +36,9 @@ con.prepareStatement("INSERT INTO category"
 
 	@Override
 	public boolean deleteCategory(int catid) {
-		try (Connection con = 
-				DbConnection.getDatabaseConnection()){
+		try (Connection con = DbConnection.getDatabaseConnection()){
 							
-		PreparedStatement pst = 
-		con.prepareStatement("DELETE FROM category"
-		+ " WHERE categoryId = ?");
+		PreparedStatement pst = con.prepareStatement("DELETE FROM category WHERE categoryId = ?");
 							
 		pst.setInt(1,catid);
 							
@@ -57,8 +49,7 @@ con.prepareStatement("INSERT INTO category"
 		else
 			return false;
 							
-		} catch(SQLException | 
-				NullPointerException exc) {
+		} catch(SQLException | NullPointerException exc) {
 			exc.printStackTrace();
 			return false;
 		}
@@ -68,11 +59,9 @@ con.prepareStatement("INSERT INTO category"
 	public List<Category> getAllCategories() {
 		List<Category> lst = new ArrayList<>();
 		
-		try (Connection con = 
-DbConnection.getDatabaseConnection()){
+		try (Connection con = DbConnection.getDatabaseConnection()){
 			
-			PreparedStatement pst = 
-con.prepareStatement("SELECT * FROM category");
+			PreparedStatement pst = con.prepareStatement("SELECT * FROM category");
 			
 			ResultSet rs = pst.executeQuery();
 			
@@ -80,10 +69,8 @@ con.prepareStatement("SELECT * FROM category");
 				while(rs.next()) {
 					
 					Category obj = new Category();
-					obj.setCategoryId(
-							rs.getInt("categoryId"));
-					obj.setCategoryName(
-					rs.getString("categoryName"));
+					obj.setCategoryId(rs.getInt("categoryId"));
+					obj.setCategoryName(rs.getString("categoryName"));
 					lst.add(obj);
 				}
 				
@@ -92,8 +79,7 @@ con.prepareStatement("SELECT * FROM category");
 			else 
 				return lst;
 			
-		} catch (SQLException | 
-				NullPointerException e) {
+		} catch (SQLException | NullPointerException e) {
 			e.printStackTrace();
 			lst.clear();
 			return lst;

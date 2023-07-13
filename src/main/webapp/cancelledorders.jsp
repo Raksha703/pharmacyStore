@@ -17,6 +17,9 @@ uri="http://java.sun.com/jsp/jstl/core"%>
 <head>
 <meta charset="ISO-8859-1">
 <title>Cancelled Order</title>
+<!-- Favicons -->
+  <link href="Homepage/img/favicon.png" rel="icon">
+  <link href="Homepage/img/apple-touch-icon.png" rel="apple-touch-icon">
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">

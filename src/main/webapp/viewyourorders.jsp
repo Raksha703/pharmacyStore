@@ -14,6 +14,11 @@ uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
+
+<!-- Favicons -->
+  <link href="Homepage/img/favicon.png" rel="icon">
+  <link href="Homepage/img/apple-touch-icon.png" rel="apple-touch-icon">
+
 <meta charset="ISO-8859-1">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -63,7 +68,7 @@ color:white;
                 <thead>
                     <tr>
                         <th>Order ID</th>
-                   		<th>Product iD</th>
+                   		<th>Product ID</th>
                         <th>Ordered Units</th>
                         <th> Accepted</th>
                         <th> Cancelled</th>

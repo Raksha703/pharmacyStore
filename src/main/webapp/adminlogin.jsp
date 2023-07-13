@@ -14,6 +14,9 @@ prefix = "c" %>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		
 	<head>
+	<!-- Favicons -->
+  <link href="Homepage/img/favicon.png" rel="icon">
+  <link href="Homepage/img/apple-touch-icon.png" rel="apple-touch-icon">
 	  	<title>Admin Login</title>
 	    <meta charset="utf-8">
 	    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">

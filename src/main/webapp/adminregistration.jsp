@@ -7,7 +7,10 @@ prefix = "c" %>
 
 <!doctype html>
 <html lang="en">
-  	<head>  	 	
+  	<head>  
+  	<!-- Favicons -->
+  <link href="Homepage/img/favicon.png" rel="icon">
+  <link href="Homepage/img/apple-touch-icon.png" rel="apple-touch-icon">
   	
 	  	<title>Admin Registration</title>
 	    <meta charset="utf-8">
@@ -21,6 +24,34 @@ prefix = "c" %>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		
 	</head>
+	<style>
+	body {
+	    padding-top:50px;
+	}
+	fieldset {
+	    border: thin solid #ccc; 
+	    border-radius: 4px;
+	    padding: 20px;
+	    padding-left: 40px;
+	    background: #fbfbfb;
+	}
+	legend {
+	   color: #678;
+	}
+	.form-control {
+	    width: 95%;
+	}
+	label small {
+	    color: #678 !important;
+	}
+	span.req {
+	    color:maroon;
+	    font-size: 112%;
+	}
+	legend {	
+	margin-top:200px;
+	}
+</style>
 	
 	<style>
 		#btnsub{
@@ -70,7 +101,7 @@ prefix = "c" %>
 					<div class="col-md-6 col-lg-4">
 						<div class="login-wrap p-0">
 			      	
-			      	<form action="registerAdmin" class="form">
+			      	<form action="registerAdmin" class="form" name="regform" id="regform">
 			      		<div class="form-group">
 			      			<input type="text" class="form-control" placeholder="Enter AdminID"  
 			      			maxlength="30" id="userid" name="userid"  onchange="email_validate(this.value);" 

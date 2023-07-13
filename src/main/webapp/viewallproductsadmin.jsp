@@ -6,8 +6,7 @@
     pageEncoding="ISO-8859-1"%>
     
 <%@ page isELIgnored="false" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" 
-prefix = "c" %>	
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix = "c" %>	
 
 <%
 response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
@@ -19,6 +18,10 @@ response.setHeader("Expires", "0"); // Proxies
 <html>
 <head>
 <meta charset="ISO-8859-1">
+
+<!-- Favicons -->
+  <link href="Homepage/img/favicon.png" rel="icon">
+  <link href="Homepage/img/apple-touch-icon.png" rel="apple-touch-icon">
 
 <!-- alert -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.29.2/sweetalert2.all.min.js"></script>    
@@ -175,7 +178,6 @@ background-color:#1997cc;
 		                        </td>
 		                        
 		                        <td>
-		                        	<c:set var="proid" value="${p.productid}"/>
 		                        	<button id="myBtn" class="btn btn-danger"
 		                        	onclick="openMyDialog(${p.productid})">Update This Product</button>		                        	
 		                        </td>             
@@ -195,15 +197,18 @@ background-color:#1997cc;
                     <li class="page-item"><a href="#" class="page-link">Next</a></li>
                 </ul>
             </div>   
-            
-            <!-- Start Of The Modal Design-->
+        
+<!-- Start Of The Modal Design-->
 <div class="container" align="center">
 <div id="myModal" class="modal">
+
+	<input type="hidden" id="productId" value="" />
 
   <!-- Modal content -->
   <div class="modal-content">
     <span class="close">&times;</span>
     <table class="table table-hover">
+    
         <tr>
             <th align="center"> <b>Enter Product Details To Be Updated : </b></th>
         </tr>
@@ -241,8 +246,9 @@ background-color:#1997cc;
   </div>
 </div>
 </div>
-<!-- End Of The Modal Design-->        
-        <script>
+<!-- End Of The Modal Design-->
+
+<script>
 
 			// Get the modal
 			var modal = document.getElementById("myModal");

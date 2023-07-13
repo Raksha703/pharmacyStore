@@ -2,24 +2,70 @@
 <%@page import="java.util.List"%>
 <%@page import="com.pharmacystore.daoimpl.CategoryDaoImpl"%>
 <%@page import="com.pharmacystore.dao.CategoryDao"%>
-
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>    
+<%@ page import="java.util.concurrent.TimeUnit" %>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+    
 <%@ page isELIgnored="false" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix = "c" %>	
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" 
+prefix = "c" %>	
 
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="ISO-8859-1">
-	<title>Add Category</title>
+	<title>ADD CATEGORY</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.29.2/sweetalert2.all.min.js"></script>    
+		
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.29.2/sweetalert2.all.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.29.2/sweetalert2.all.min.js"></script>    
-	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<!-- AJAX -->
+	<script type="text/javascript">
+		var request;
+		
+		function senddata(){
+			var catName = document.getElementById("categoryName").value;
+			var pageurl = "checkCat.jsp?categoryName="+catName;
+			
+			if(window.XMLHttpRequest){
+				request=new XMLHttpRequest();
+			}
+			else if(window.ActiveXObject){
+				request=new ActiveXObject("MicrosoftXMLTTP");
+			}
+			
+			try{
+				request.onreadystatechange = recievedata;
+				request.open("GET",  pageurl, true);
+				request.send();
+			}catch(e){
+				alert("Unable to connect to Server");
+			}
+		}
+		
+		function recievedata() {
+		    
+		    if (request.readyState == 4) {
+		    	if (request.readyState == 4) {
+					var val = request.responseText;
+					if (val.trim() == "success") {
+						alert("product updated");
+						window.location.reload(true);
+					} else {
+						alert("product update failed");
+					}
+				}
+		    }
+		}	
+	</script>   
+	<!-- AJAX end -->
 	
 </head>
 
@@ -51,36 +97,20 @@
 				</nav>
 				
 	<div class="container">
-
-		<c:if test="${param.msg == 'categoryAddFail'}">
-			<c:set var="message" value="Failed To Add Category !!!"/>
-		</c:if>
-				
-		<c:if test="${not empty message}">
-			<script>
-				if ("${message}" !== "") {
-			    	swal({
-			    	    title: 'Message From Server',
-			            text: '${message.trim()}',
-			            icon: 'error'
-				    });
-				}
-			</script>
-		</c:if>
-		
-		<div class="row">
+          
+          <div class="row">
 		<div class="col-md-2"></div>
             <div class="col-md-6">
                 
-                <form action="addcategory" method="post" id="fileForm" role="form">
+                <form action="" method="post" id="fileForm" role="form">
                 <fieldset><legend class="text-center">All Fields <span class="req"><small> required *</small></span></legend>
     
                     <div class="form-group">
+                    
                         <label for="categoryName"><span class="req">* </span> Category Name </label>
                         <input required name="categoryName" type="text" class="form-control inputpass" 
-                        	minlength="4" maxlength="30"  id="categoryName" />
-    				
-                    	<input class="btn btn-success" type="submit" name="submit_reg" value="Submit Category">
+                        	minlength="4" maxlength="30"  id="categoryName"/>
+                    	<input class="btn btn-success" type="submit" name="submit_reg" value="Submit Category" onclick ="senddata()">
                 	</div>
                 	
                 </fieldset>
@@ -88,7 +118,7 @@
             </div>
          </div>
          </div>
-                    
+            
     <% 
 	}else
 	{

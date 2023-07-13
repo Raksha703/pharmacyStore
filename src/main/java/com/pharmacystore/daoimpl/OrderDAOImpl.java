@@ -16,22 +16,20 @@ public class OrderDAOImpl implements OrderDao {
 	public boolean placeOrder(Order order) {
 		try(Connection con = DbConnection.getDatabaseConnection()){
 			
-			PreparedStatement pst = 
-					con.prepareStatement("insert into productorder"
-							+ "(orderdunits,address,ordereddate,requesteddate,accepted,cancelled,"
+			PreparedStatement pst = con.prepareStatement("insert into productorder"
+							+ "(orderdunits,address,ordereddate,requesteddate,cancelled,"
 							+ "confirmed,billamount,customerid,productid) "
-							+ "values(?,?,?,?,?,?,?,?,?,?)");
+							+ "values(?,?,?,?,?,?,?,?,?)");
 			
 			pst.setInt(1, order.getOrderedunits());
 			pst.setString(2, order.getAddress());
 			pst.setDate(3, order.getOrdereddate());
 			pst.setDate(4, order.getRequesteddate());
-			pst.setBoolean(5, true);
+			pst.setBoolean(5, false);
 			pst.setBoolean(6, false);
-			pst.setBoolean(7, false);
-			pst.setInt(8, order.getBillamount());
-			pst.setString(9, order.getCustomerid());
-			pst.setInt(10, order.getProductid());
+			pst.setInt(7, order.getBillamount());
+			pst.setString(8, order.getCustomerid());
+			pst.setInt(9, order.getProductid());
 			
 			int count = pst.executeUpdate();
 			
@@ -53,9 +51,7 @@ public class OrderDAOImpl implements OrderDao {
 		
 		try(Connection con = DbConnection.getDatabaseConnection()){
 			
-			PreparedStatement pst = 
-					con.prepareStatement(
-							"select * from productorder");
+			PreparedStatement pst = con.prepareStatement("select * from productorder");
 			
 			ResultSet rs = pst.executeQuery();
 			
@@ -68,8 +64,7 @@ public class OrderDAOImpl implements OrderDao {
 					order.setOrderedunits(rs.getInt("orderdunits"));
 					order.setAddress(rs.getString("address"));
 					order.setOrdereddate(rs.getDate("ordereddate"));
-					order.setRequesteddate(
-							rs.getDate("requesteddate"));
+					order.setRequesteddate(rs.getDate("requesteddate"));
 					order.setAccepted(rs.getBoolean("accepted"));
 					order.setCancelled(rs.getBoolean("cancelled"));
 					order.setConfirmed(rs.getBoolean("confirmed"));
@@ -97,10 +92,7 @@ public class OrderDAOImpl implements OrderDao {
 		
 		try(Connection con = DbConnection.getDatabaseConnection()){
 			
-			PreparedStatement pst = 
-					con.prepareStatement(
-							"select * from productorder where"
-							+ " orderid = ?");
+			PreparedStatement pst = con.prepareStatement("select * from productorder where orderid = ?");
 			pst.setInt(1, orderId);
 			ResultSet rs = pst.executeQuery();
 			
@@ -112,8 +104,7 @@ public class OrderDAOImpl implements OrderDao {
 					order.setOrderedunits(rs.getInt("orderdunits"));
 					order.setAddress(rs.getString("address"));
 					order.setOrdereddate(rs.getDate("ordereddate"));
-					order.setRequesteddate(
-							rs.getDate("requesteddate"));
+					order.setRequesteddate(rs.getDate("requesteddate"));
 					order.setAccepted(rs.getBoolean("accepted"));
 					order.setCancelled(rs.getBoolean("cancelled"));
 					order.setConfirmed(rs.getBoolean("confirmed"));
@@ -137,9 +128,7 @@ public class OrderDAOImpl implements OrderDao {
 		
 		try(Connection con = DbConnection.getDatabaseConnection()){
 			
-			PreparedStatement pst = 
-					con.prepareStatement(
-"update productorder set confirmed = true where orderid = ?");
+			PreparedStatement pst = con.prepareStatement("update productorder set confirmed = true where orderid = ?");
 			
 			pst.setInt(1, orderId);
 			
@@ -163,16 +152,15 @@ public class OrderDAOImpl implements OrderDao {
 		
 		try(Connection con = DbConnection.getDatabaseConnection()){
 			
-			PreparedStatement pst = 
-					con.prepareStatement(
-"update productorder set cancelled = true where orderid = ?");
+			PreparedStatement pst = con.prepareStatement("delete from productorder where orderid = ?");
 			
 			pst.setInt(1, orderId);
 			
 			int count = pst.executeUpdate();
 			
-			if(count > 0)
+			if(count > 0) {
 				status = true;
+			}
 		}
 		catch(SQLException ex)
 		{
@@ -190,10 +178,7 @@ public class OrderDAOImpl implements OrderDao {
 		
 		try(Connection con = DbConnection.getDatabaseConnection()){
 			
-			PreparedStatement pst = 
-					con.prepareStatement(
-							"select * from productorder"
-							+ " where customerid = ?");
+			PreparedStatement pst = con.prepareStatement("select * from productorder where customerid = ?");
 			
 			pst.setString(1, customerid);
 			
@@ -238,9 +223,7 @@ public class OrderDAOImpl implements OrderDao {
 		
 		try (Connection con = DbConnection.getDatabaseConnection())
 		{
-			PreparedStatement pst = 
-					con.prepareStatement("UPDATE productorder SET address = ? "
-							+ "WHERE orderid = ?");
+			PreparedStatement pst = con.prepareStatement("UPDATE productorder SET address = ? WHERE orderid = ?");
 			
 			pst.setString(1, address);
 			pst.setInt(2, orderid);
@@ -264,9 +247,7 @@ public class OrderDAOImpl implements OrderDao {
 		
 		try(Connection con = DbConnection.getDatabaseConnection()){
 			
-			PreparedStatement pst = con.prepareStatement(
-							"select * from product"
-							+ " where productid = ?");
+			PreparedStatement pst = con.prepareStatement("select * from product where productid = ?");
 			
 			pst.setInt(1, order.getProductid());
 			
@@ -296,8 +277,7 @@ public class OrderDAOImpl implements OrderDao {
 		
 		try(Connection con = DbConnection.getDatabaseConnection()){
 			
-			PreparedStatement pst = con.prepareStatement(
-					"SELECT cancelled FROM productorder where orderid = ?");
+			PreparedStatement pst = con.prepareStatement("SELECT cancelled FROM productorder where orderid = ?");
 			
 			pst.setInt(1, orderId);
 			

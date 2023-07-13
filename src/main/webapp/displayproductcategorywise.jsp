@@ -1,23 +1,32 @@
-<%@page import="com.pharmacystore.pojo.*"%>
+<%@page import="com.pharmacystore.pojo.Product"%>
 <%@page import="java.util.List"%>
-<%@page import="com.pharmacystore.dao.*"%>
-<%@page import="com.pharmacystore.daoimpl.*"%><%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@page import="com.pharmacystore.daoimpl.ProductDaoImpl"%>
+<%@page import="com.pharmacystore.dao.ProductDao"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     
-<%@ taglib prefix="c" 
-uri="http://java.sun.com/jsp/jstl/core"%>   
-    
+
+<%@ page isELIgnored="false" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" 
+prefix = "c" %>	
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<title>Product Categorywise</title>
+
+<!-- Favicons -->
+  <link href="Homepage/img/favicon.png" rel="icon">
+  <link href="Homepage/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
   <link rel="stylesheet" href="Homepage/css/button.css"> 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
+
 <style>
 body {
 	font-family: Arial, Helvetica, sans-serif;
@@ -68,21 +77,51 @@ background-color:#1977cc;
 #head{
 color:white;
 }
-</style>
+.grid-container{
+justify-content:space-evenly;
+border-all:2px solid black;
+}
+.grid-item{
 
+border:2px solid black;
+padding: 10px;
+font-size: 15px;
+}
+
+#myBtn:hover {
+  background-color: #1997cc;
+}
+
+.page-link:hover{
+background-color:#1997cc;
+}
+
+#pad{
+margin-left:20px;
+
+}
+</style>
 <body>
 
 <%
-			if(!session.isNew() || session.getAttribute("USER") != null)
-			{
-		%>
+if(!session.isNew() || session.getAttribute("USER") != null)
+{
+	int pageid=Integer.parseInt(request.getParameter("page"));
+	int total=6;
+	if(pageid==1){}
+	else{
+		pageid=pageid-1;
+		pageid=pageid*total+1;
+	}
+%>
+
 <nav class="navbar " id="new" >
   <div class="container-fluid">
     <div class="navbar-header" >
       <a class="navbar-brand" href="userhome.jsp" id="head">USER HOME</a>
     </div>
     <ul class="nav navbar-nav">
-      <li class="active"><a href="displayallproduct.jsp" id="head">Nutritions</a></li>
+      <li class="active"><a href="displayproductpaginationcontroller" id="head">All Products</a></li>
       
     </ul>
     <ul class="nav navbar-nav navbar-right">
@@ -91,66 +130,65 @@ color:white;
         </li>
      </ul>
   </div>
-</nav>		
-		
-		
+</nav>
 	 <div class="container">
-        <div class="table-wrapper">
-            <div class="table-title">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <h2> Products For You</h2><br>
-                    </div>
-                </div>
-            </div>
-            
-                    <c:forEach items="${applicationScope.PRO2LIST}" var="product">
-                    
-                    	<div class="col-lg-4"> 
-      						<div class="panel panel-primary">
-        						<div class="panel-heading">${productid}</div>
-        						<div class="panel-body">${productname}<img src="Homepage/css/cat2.jpg" 
-        							class="img-responsive" style="height:195px; width:100%" alt="Image"></div>
-        						<div class="panel-footer">Price : ${price}<br>Quantity Available 
-        							${quantity}</div>
-        				
-                        <input type="hidden" name="productid" value="${productid}"/>
-        				<input type="hidden" name="priceprod"  value="${price}">
-        				<input type="hidden" name="availquantity" value="${quantity}">
-        				<input type="hidden" name="productid"value="${productid}">
-        						<button id="myBtn" class="btn btn-danger"
-                        			onclick="openMyDialog(${productid})">Place Order</button>
-     							</div>
-     							 </div>     				 
-   				</c:forEach>
-     				 
-   				
-                       
-                <%}else{%>
-                
-                <p style=color:red> You need to login first !!! </p>
-				<jsp:include page="userlogin.jsp"></jsp:include>
-                
-                
-             <%   }%>
-                
-        </div>
-         </div>
+	 		 
+            <c:forEach items="${applicationScope.CATWISE}" var="p">
+            	<div class="border-all">
+	            	<div class="col-lg-4">
+	            		<div class="grid-container">
+	            			<br><br>
+	            			<div class="grid-item">${p.productid}<br>${p.productname}<br>
+		            			<img src="Homepage/css/display.jpg" class="img-responsive" 
+		            				style="height:195px; width:100%" alt="Image">
+		            			<br>
+		            			Price : ${p.price}
+		            			<br>
+		            			Quantity Available ${p.quantity}
+		            			<br>
+		            			<button id="myBtn" class="btn btn-danger"onclick="openMyDialog(${p.productid})">
+		            				Place Order
+		            			</button>
+	            			</div>
+	            		</div>
+            		</div>	
+            	</div>
+            </c:forEach>
+    
+<%}else{%>
 
+<p style=color:red> You need to login first !!! </p>
+<jsp:include page="userlogin.jsp"></jsp:include>
+
+<%}%>  	
+	
+	<div class="clearfix">
+                <ul class="pagination" id ="pag">
+                <% 
                 
-            <div class="clearfix">
-                <ul class="pagination">
-                    <li class="page-item disabled"><a href="#">Previous</a></li>
-                    <li class="page-item active"><a href="#" class="page-link">1</a></li>
-                    <li class="page-item"><a href="#" class="page-link">2</a></li>
-                    <li class="page-item "><a href="#" class="page-link">3</a></li>
-                    <li class="page-item"><a href="#" class="page-link">4</a></li>
-                    <li class="page-item"><a href="#" class="page-link">Next</a></li>
+                int pageid=Integer.parseInt(request.getParameter("page"));
+                if(pageid > 1){
+                %>
+                    <li class="page-item"><a href="displayproductpagination.jsp?page=<%=(pageid-1)%>">Previous</a></li>
+                <%
+                }
+                %>
+                    <li class="page-item"><a href="displayproductpagination.jsp?page=1" class="page-link">1</a></li>
+                    <li class="page-item"><a href="displayproductpagination.jsp?page=2" class="page-link">2</a></li>
+                    <li class="page-item "><a href="displayproductpagination.jsp?page=3" class="page-link">3</a></li>
+                    <!-- <li class="page-item"><a href="#" class="page-link">4</a></li> -->
+               <%
+                if(pageid < 3){
+                %>
+                    <li class="page-item"><a href="displayproductpagination.jsp?page=<%=(pageid+1)%>" class="page-link">Next</a></li>
+                <%
+                }
+                %>
                 </ul>
             </div>
-            
-            
-           <div class="container" align="center">
+	</div>
+	
+<div class="container" align="center">
 <div id="myModal" class="modal">
 
   <!-- Modal content -->
@@ -189,16 +227,13 @@ color:white;
         <script>
 
 									// Get the modal
-									var modal = document
-											.getElementById("myModal");
+									var modal = document.getElementById("myModal");
 
 									// Get the button that posts complaint
-									var btnRaise = document
-											.getElementById("btnRaise");
+									var btnRaise = document.getElementById("btnRaise");
 
 									// Get the <span> element that closes the modal
-									var span = document
-											.getElementsByClassName("close")[0];
+									var span = document.getElementsByClassName("close")[0];
 
 									var productid = 0;
 
@@ -207,25 +242,16 @@ color:white;
 										modal.style.display = "block";
 										productid = id;
 									}
-									
-									
 
 									function placeOrder() {
 
-										var address = document
-												.getElementById("address").value;
+										var address = document.getElementById("address").value;
 										
-										var quantity = document
-										.getElementById("quantity").value;
+										var quantity = document.getElementById("quantity").value;										
 										
-										
-										
-										var url = "Placeorder.jsp?productid="
-												+ productid
-												+ "&address="
-												+ address
-												+ "&quantity="
-												+ quantity;
+										var url = "Placeorder.jsp?productid="+ productid
+												+ "&address="+ address
+												+ "&quantity="+ quantity;
 									
 
 										modal.style.display = "none";
@@ -233,8 +259,7 @@ color:white;
 										if (window.XMLHttpRequest) {
 											request = new XMLHttpRequest();
 										} else if (window.ActiveXObject) {
-											request = new ActiveXObject(
-													"Microsoft.XMLHTTP");
+											request = new ActiveXObject("Microsoft.XMLHTTP");
 										}
 
 										try {
@@ -252,15 +277,13 @@ color:white;
 											if (val.trim() == "success") {
 												alert("Order placed ");
 												window.location.reload(true);
-												
-												
 											}
 											else if(val.trim()=="lessquantity"){
 												alert("Enter Less Quantity");
 												window.location.reload(true);
 											}
 											else {
-												alert("Order Place Failed");
+												alert("Order Failed");
 											}
 										}
 									}
@@ -277,7 +300,21 @@ color:white;
 											modal.style.display = "none";
 										}
 									}
+									
+									  links = document.getElementById("#pag").querySelectorAll("a")
+									  links.forEach(function (item) {
+									    item.addEventListener('click', function () {
+									      //reset the color of other links
+									      links.forEach(function (item) {
+									        item.style.backgroundColor = '#fff'
+									      })
+									      // apply the style to the link
+									      this.style.backgroundColor = '#1997cc'
+									    });
+									  })
+
+								
 								</script>
-        
+
 </body>
 </html>

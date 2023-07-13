@@ -55,16 +55,6 @@
   </servlet-mapping>
   
   <servlet>
-  	<servlet-name>DEMO6</servlet-name>
-  	<jsp-file>/controller/addcategory.jsp</jsp-file>
-  </servlet>
-  
-  <servlet-mapping>
-  	<servlet-name>DEMO6</servlet-name>
-  	<url-pattern>/addcategory</url-pattern>
-  </servlet-mapping>
-  
-  <servlet>
   	<servlet-name>DEMO7</servlet-name>
   	<jsp-file>/controller/addproduct.jsp</jsp-file>
   </servlet>
@@ -126,12 +116,12 @@
   
   <servlet>
   	<servlet-name>DEMO13</servlet-name>
-  	<jsp-file>/additemtoproduct.jsp</jsp-file>
+  	<jsp-file>/controller/additemcontroller.jsp</jsp-file>
   </servlet>
   
   <servlet-mapping>
   	<servlet-name>DEMO13</servlet-name>
-  	<url-pattern>/additemtoproduct</url-pattern>
+  	<url-pattern>/additemcontroller</url-pattern>
   </servlet-mapping>
   
   <servlet>
@@ -222,6 +212,57 @@
   <servlet-mapping>
   	<servlet-name>DEMO22</servlet-name>
   	<url-pattern>/displayproductpaginationcontroller</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>DEMO23</servlet-name>
+  	<jsp-file>/controller/updatestatuscontroller.jsp</jsp-file>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>DEMO23</servlet-name>
+  	<url-pattern>/updatestatuscontroller</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>DEMO24</servlet-name>
+  	<jsp-file>/controller/cancelordercontroller.jsp</jsp-file>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>DEMO24</servlet-name>
+  	<url-pattern>/cancelordercontroller</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>DEMO25</servlet-name>
+  	<jsp-file>/controller/updationofaddresscontroller.jsp</jsp-file>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>DEMO25</servlet-name>
+  	<url-pattern>/updationofaddresscontroller</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>DEMO26</servlet-name>
+  	<jsp-file>/controller/updateaddresscontroller.jsp</jsp-file>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>DEMO26</servlet-name>
+  	<url-pattern>/updateaddresscontroller</url-pattern>
+  </servlet-mapping>
+  
+	
+  <servlet>
+  	<servlet-name>DEMO27</servlet-name>
+  	<jsp-file>/controller/displayproductcategorywisecontroller.jsp</jsp-file>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>DEMO27</servlet-name>
+  	<url-pattern>/displayproductcategorywisecontroller</url-pattern>
   </servlet-mapping>
   
 </web-app>

@@ -9,6 +9,10 @@ prefix = "c" %>
 <html lang="en">
 	<head>
 	
+	<!-- Favicons -->
+  <link href="Homepage/img/favicon.png" rel="icon">
+  <link href="Homepage/img/apple-touch-icon.png" rel="apple-touch-icon">
+	
 <!-- alert -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.29.2/sweetalert2.all.min.js"></script>    
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>

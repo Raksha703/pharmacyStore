@@ -10,4 +10,5 @@ public interface UserDao {
 	boolean checkUser(User user);
 	List<Order> displaymycancelledorder(User user);
 	boolean cancelOrder(Order order);
+	boolean searchUser(int uid);
 }

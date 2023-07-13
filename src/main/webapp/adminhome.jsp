@@ -21,6 +21,11 @@ prefix = "c" %>
 
 
  <title>ADMIN HOME </title>
+ 
+ 	<!-- Favicons -->
+  <link href="Homepage/img/favicon.png" rel="icon">
+  <link href="Homepage/img/apple-touch-icon.png" rel="apple-touch-icon">
+  
     <!-- bootstrap.min css -->
     <link rel="stylesheet" href="Homepage/adminhome/plugins/bootstrap/css/bootstrap.css">
     <!-- Icofont Css -->
@@ -56,12 +61,6 @@ prefix = "c" %>
 			{
 		%>		
 		
-				<c:set var = "message" value=""/>
-
-				<c:if test="${param.msg == 'categoryAddSuccess'}">
-					<c:set var="message" value="Category added successful !!!"/>
-				</c:if>
-				
 				<c:if test="${param.msg == 'addProductSuccess'}">
 					<c:set var="message" value="Product added successful !!!"/>
 				</c:if>
@@ -69,11 +68,6 @@ prefix = "c" %>
 				<c:if test="${param.msg == 'deleteCatSuccess'}">
 					<c:set var="message" value="Category deleted successful !!!"/>
 				</c:if>
-				
-				<c:if test="${param.msg == 'statusUpdateSuccess'}">
-					<c:set var="message" value="Status updated successful !!!"/>
-				</c:if>
-								
 				
 				<c:if test="${not empty message}">
 					<script>
@@ -108,10 +102,10 @@ prefix = "c" %>
                         <a class="nav-link smoth-scroll" href="deletecatcontroller">Delete Category</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link smoth-scroll" href="vieworderscontroller">View Unconfirmed Orders</a>
+                        <a class="nav-link smoth-scroll" href="viewordercontroller">View Unconfirmed Orders</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link smoth-scroll" href="additemtoproduct">Add Products</a>
+                        <a class="nav-link smoth-scroll" href="additemcontroller">Add Products</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link smoth-scroll" href="viewallproadmincontroller">View Available Products</a>
@@ -133,31 +127,7 @@ prefix = "c" %>
     <div class="overlay dark-overlay"></div>
     <div class="d-table">
         <div class="d-table-cell">
-            <div class="container">
-            
-               <%/*
-					String msg = request.getParameter("msg");
-					String message = "";
-				
-					if(msg!=null && msg.equals("categoryAddSuccess")){
-						message = "Category added successful !!!";
-					}
-						
-					else if(msg!=null && msg.equals("addProductSuccess")){
-						message = "Product added successful !!!";
-					}
-					
-					else if(msg!=null && msg.equals("deleteCatSuccess")){
-						message = "Category deleted successful !!!";
-					}
-					
-					else if(msg!=null && msg.equals("statusUpdateSuccess")){
-						message = "Status updated successful !!!";
-					}*/
-					
-				%>
-				
-				            
+            <div class="container">      
             
                 <div class="row">
                     <div class="col-lg-8 m-auto text-center col-sm-12 col-md-12">

@@ -7,10 +7,10 @@
 	int oid = Integer.parseInt(request.getParameter("orderid"));
 	OrderDao daoImpl = new OrderDAOImpl();
 	
-	if(daoImpl.changeOrderStatusToConfirmed(oid))
+	if(daoImpl.changeOrderStatusToCancelled(oid))
 	{
-		response.sendRedirect("adminhome.jsp?msg=statusUpdateSuccess");
+		out.print("success");
 	}else{
-		response.sendRedirect("vieworders.jsp?msg=orderUpdateFail");
+		out.print("failure");
 	}
 	%>

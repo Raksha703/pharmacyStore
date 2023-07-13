@@ -21,10 +21,9 @@ prefix = "c" %>
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   
-
-  <!-- Favicons -->
-  <link href="Homepage/assets/img/favicon.png" rel="icon">
-  <link href="Homepage/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+<!-- Favicons -->
+  <link href="Homepage/img/favicon.png" rel="icon">
+  <link href="Homepage/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
@@ -53,7 +52,7 @@ prefix = "c" %>
         <div class="col-xl-9 d-flex align-items-center justify-content-lg-between">
 	 <a href="index.html"  class="logo me-auto me-lg-0"><img src="Homepage/assets/img/iconlogo.png" alt="" class="img-fluid"></a>
          
-	 <h2 class="logo me-auto me-lg-0" id="nav"><a href="index.html"  >Online Pharmacy Store</a></h2>
+	 <h2 class="logo me-auto me-lg-0" id="nav"><a href="index.jsp"  >PharmaSage</a></h2>
           
           <nav id="navbar" class="navbar order-last order-lg-0">
             <ul>
@@ -114,8 +113,9 @@ prefix = "c" %>
 				
       <div class="row justify-content-center">
         <div class="col-xl-8">
-          <h1>Simplifying Healthcare,Impacting Lives</h1>
-          <h2>vital medicines delivered across the country.</h2>
+         
+          <h1>Your Health, Our Priority:</h1>
+          <h2>Bringing Quality Medications to Your Doorstep.</h2>
           
         </div>
       </div>
@@ -300,19 +300,19 @@ prefix = "c" %>
               <div class="address">
                 <i class="ri-map-pin-line"></i>
                 <h4>Location:</h4>
-                <p>A1022 Times Square, New York</p>
+                <p>A1022 Mandi Road, Dhamnod</p>
               </div>
 
               <div class="email">
                 <i class="ri-mail-line"></i>
                 <h4>Email:</h4>
-                <p>Group2@info.com</p>
+                <p>703raksha@info.com</p>
               </div>
 
               <div class="phone">
                 <i class="ri-phone-line"></i>
                 <h4>Call:</h4>
-                <p>+1 454333</p>
+                <p>+91 9643859631</p>
               </div>
 
             </div>
@@ -358,7 +358,7 @@ prefix = "c" %>
 
   <footer id="footer">
     <div class="container">
-      <h3>PharmacyStore.</h3>
+      <h3>PharmaSage</h3>
       <p> A pharmacy that never breaks your trust.</p>
       <div class="social-links">
         <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>

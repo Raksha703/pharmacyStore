@@ -11,7 +11,6 @@
 	<%
 		AdminDao daoImpl = new AdminDaoImpl();
 		if(daoImpl.register(admin)) {
-			
 			response.sendRedirect("adminlogin.jsp?msg=adminRegSuccess");
 		}
 		else {			

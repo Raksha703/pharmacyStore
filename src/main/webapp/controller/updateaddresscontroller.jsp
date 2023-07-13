@@ -12,5 +12,5 @@
 	
 	List<Order> lst = odao.getAllOrdersForUser(uid);
 	application.setAttribute("ALLYOURORDERLIST", lst);
-	response.sendRedirect("viewyourorders.jsp");
+	response.sendRedirect("updateaddress.jsp");
 %>

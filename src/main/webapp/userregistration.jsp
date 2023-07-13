@@ -9,6 +9,10 @@ prefix = "c" %>
 <html lang="en">
 <head>
 
+<!-- Favicons -->
+  <link href="Homepage/img/favicon.png" rel="icon">
+  <link href="Homepage/img/apple-touch-icon.png" rel="apple-touch-icon">
+
 <!-- alert -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.29.2/sweetalert2.all.min.js"></script>    
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -50,6 +54,7 @@ prefix = "c" %>
 	margin-top:200px;
 	}
 </style>
+
 <script type="text/javascript">
     function checkPass()
 	{
@@ -190,7 +195,7 @@ prefix = "c" %>
             <div class="col-md-8">
             
                 <form action="registerUser" method="post" id="fileForm" role="form">
-	                <fieldset><h2 align="center">User Registrations<span class="req"><small> required *</small></span></h2>
+	                <fieldset><h2 align="center">User Registrations<span class="req"></span></h2>
 	    
 	                    <div class="form-group">
 	                    
@@ -199,7 +204,7 @@ prefix = "c" %>
 	                        <div id="errLast"></div>
 	                        
 	                        <label for="password"><span class="req">* </span> Password: </label>
-	                        <input required name="password" type="password" class="form-control inputpass" minlength="4" maxlength="16"  id="password" /> </p>
+	                        <input required name="password" type="password" class="form-control inputpass" minlength="4" maxlength="16"  id="password" placeholder="Enter password"/> </p>
 	    
 	                        <label for="password"><span class="req">* </span> Password Confirm: </label>
 	                        <input required name="password" type="password" class="form-control inputpass" minlength="4" maxlength="16" placeholder="Enter again to validate"  id="pass2" onkeyup="checkPass(); return false;" />
@@ -207,7 +212,7 @@ prefix = "c" %>
 							<br>
 							
 	                        <label for="email"><span class="req">* </span> Email Address: </label> 
-	                   	    <input class="form-control" required type="text" name="emailid" id = "emailid"  onchange="email_validate(this.value);" />   
+	                   	    <input class="form-control" required type="text" name="emailid" id = "emailid"  onchange="email_validate(this.value);" placeholder="Enter your Email"/>   
 	                        <div class="status" id="status"></div>
 	                                
 	                        <label for="age"><span class="req">* </span> Age : </label>
@@ -217,15 +222,15 @@ prefix = "c" %>
 	                        <input required type="text" name="contact" id="contact" class="form-control phone" maxlength="28" onkeyup="validatephone(this);" placeholder="Mobile no."/> 
 	                    
 	                        <label for="state"><span class="req">* </span> State </label>
-	                        <input class="form-control" type="text" name="state" id = "state" onkeyup = "Validate(this)" required /> 
+	                        <input class="form-control" type="text" name="state" id = "state" onkeyup = "Validate(this)" placeholder="Enter your state" required /> 
 	                        <div id="errFirst"></div>    
 	                	
 		                    <label for="city"><span class="req">* </span> City</label> 
-		                    <input class="form-control" type="text" name="city" id = "city" onkeyup = "Validate(this)"  required />  
+		                    <input class="form-control" type="text" name="city" id = "city" onkeyup = "Validate(this)" placeholder="Enter your city" required />  
 		                    <div id="errLast"></div>
 		                
 		                    <label for="pincode"><span class="req">* </span> Pincode: </label>
-		                    <input required type="text" name="pincode" id="pincode" class="form-control" maxlength="6" onkeyup="validatepincode(this);" placeholder="Pincode"/> 
+		                    <input required type="text" name="pincode" id="pincode" class="form-control" maxlength="6" onkeyup="validatepincode(this);" placeholder="Enter your Pincode"/> 
 		                
 		                    <hr>
 		                    <input type="checkbox" required name="terms" 

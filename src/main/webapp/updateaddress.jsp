@@ -14,12 +14,18 @@ uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
+
+<!-- Favicons -->
+  <link href="Homepage/img/favicon.png" rel="icon">
+  <link href="Homepage/img/apple-touch-icon.png" rel="apple-touch-icon">
+
 <meta charset="ISO-8859-1">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<title>Insert title here</title>
+
+<title>Address Update</title>
 </head>
 <style>
 .navbar{
@@ -56,6 +62,7 @@ background-color:#1997cc;
 				</div>
 			</nav>
 	<div class="container">
+				
 		<div class="table-wrapper">
             	<div class="table-title">
                 	<div class="row">
@@ -78,8 +85,7 @@ background-color:#1997cc;
                     </tr>
                 </thead>
                 <tbody>
-                	<c:forEach items="${applicationScope.ALLORDERLIST}"
-	        					var="allorder">
+                	<c:forEach items="${applicationScope.ALLYOURORDERLIST}" var="allorder">
 	                    <tr>
 	                        <td>${allorder.orderid}</td>                        
 	                        <td>${allorder.productid}</td>
@@ -122,7 +128,7 @@ background-color:#1997cc;
     <span class="close">&times;</span>
     <table class="table table-hover">
         <tr>
-            <th align="center"> <b>Are you sure you want to cancel </b></th>
+            <th align="center"> <b>Are you sure you want to update the address </b></th>
         </tr>
         <tr>
             <td>
@@ -172,10 +178,8 @@ background-color:#1997cc;
 										var address = document
 										.getElementById("address").value;
 
-										var url = "updationofaddress.jsp?orderid="
-												+ orderid
-												+ "&address="
-												+address;
+										var url = "updationofaddresscontroller?orderid="+ orderid
+												+ "&address="+address;
 
 										modal.style.display = "none";
 

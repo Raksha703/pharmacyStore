@@ -15,6 +15,10 @@ prefix = "c" %>
 <html>
 <head>
 
+<!-- Favicons -->
+  <link href="Homepage/img/favicon.png" rel="icon">
+  <link href="Homepage/img/apple-touch-icon.png" rel="apple-touch-icon">
+
 <!-- alert -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.29.2/sweetalert2.all.min.js"></script>    
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -53,7 +57,7 @@ color:white;
 			</nav>
 			<div class="container">
 
-				<c:if test="${param.msg == 'orderUpdateFail'}">
+				<c:if test="${param.msg == 'confirmFail'}">
 					<c:set var="message" value="Order confirmation failed !!!"/>
 				</c:if>
 				
@@ -111,11 +115,17 @@ color:white;
                         <td>${allorder.billamount}</td>
                         
                         <td>
-                            <form action="updatestatus.jsp" method="post">
+                            <form action="updatestatuscontroller" method="post">
                             <input type="hidden" name="orderid" value="${allorder.orderid}"/>
                             <input class = "btn btn-danger" type="submit" value="Confirm the Order"/>
                             </form>
                         </td>
+                        
+                        <td>
+		            		<button id="btnRaise" class="btn btn-danger" onclick="openMyDialog(${allorder.orderid})">
+		            		Cancel the Order
+		            		</button>
+	            		</td>
                                              
                    </tr>
 				</c:forEach>
@@ -123,6 +133,97 @@ color:white;
             </table>
         </div>
          </div>
+         
+<div class="container" align="center">
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <table class="table table-hover">
+        <tr>
+            <th align="center"> <b>Are you sure you want to cancel the order? </b></th>
+        </tr>
+        <tr>
+            <td><button id="btnRaise" class="btn btn-danger" onclick="cancelOrder()">
+            		YES!!
+            	</button>
+            </td>
+        </tr>
+    </table>
+  </div>
+</div>
+</div>
+<!-- End Of The Modal Design1-->
+
+ <script>
+
+		// Get the modal
+		var modal = document.getElementById("myModal");
+
+		// Get the button that posts complaint
+		var btnRaise = document.getElementById("btnRaise");
+
+		// Get the <span> element that closes the modal
+		var span = document.getElementsByClassName("close")[0];
+
+		var orderid = 0;
+
+		// When the user clicks the button, open the modal 
+		function openMyDialog(id) {
+			modal.style.display = "block";
+			orderid = id;
+		}
+
+		function cancelOrder() {
+
+			var url = "cancelordercontroller?orderid="+ orderid;
+
+			modal.style.display = "none";
+
+			if (window.XMLHttpRequest) {
+				request = new XMLHttpRequest();
+			} else if (window.ActiveXObject) {
+				request = new ActiveXObject(
+					"Microsoft.XMLHTTP");
+			}
+
+			try {
+				request.onreadystatechange = getProductResponse;
+				request.open("GET", url, true);
+				request.send();
+			} catch (e) {
+				alert("Unable to connect to server");
+			}
+		}
+
+		function getProductResponse() {
+			if (request.readyState == 4) {
+				var val = request.responseText;
+				if (val.trim() == "success") {
+					alert("Order Canelled Successfully !!!");
+					window.location.reload(true);
+				} else {
+					alert("Unable to cancel order Try Again");
+				}
+			}
+		}
+
+		// When the user clicks on <span> (x), close the modal
+		span.onclick = function() {
+			modal.style.display = "none";
+			alert(productid);
+		}
+
+		// When the user clicks anywhere outside of the modal, close it
+			window.onclick = function(event) {
+				if (event.target == modal) {
+					modal.style.display = "none";
+				}
+			}
+									
+</script>
+         
 		<div class="clearfix">
                 <ul class="pagination">
                     <li class="page-item disabled"><a href="#">Previous</a></li>
@@ -133,6 +234,9 @@ color:white;
                     <li class="page-item"><a href="#" class="page-link">Next</a></li>
                 </ul>
             </div>
+
+
+
 		<%
 				
 			}

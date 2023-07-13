@@ -1,5 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@page import="com.pharmacystore.pojo.Category"%>
+<%@page import="java.util.List"%>
+<%@page import="com.pharmacystore.daoimpl.CategoryDaoImpl"%>
+<%@page import="com.pharmacystore.dao.CategoryDao"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 
 <%
     response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
@@ -34,10 +38,12 @@
 
   <!-- Template Main CSS File -->
   <link href="Homepage/css/style.css" rel="stylesheet">
+  
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.29.2/sweetalert2.all.min.js"></script>    
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  
 </head>
 
 <style>
@@ -51,13 +57,15 @@
 	if(!session.isNew() || session.getAttribute("USER") != null)
 	{
 	%>
+	
+	
 
   <!-- ======= Top Bar ======= -->
   <div id="topbar" class="d-flex align-items-center fixed-top">
     <div class="container d-flex justify-content-between">
       <div class="contact-info d-flex align-items-center">
-        <i class="bi bi-envelope"></i> <a href="mailto:contact@example.com">contact@example.com</a>
-        <i class="bi bi-phone"></i> +1 5589 55488 55
+        <i class="bi bi-envelope"></i> <a href="mailto:contact@example.com">703raksha@gmail.com</a>
+        <i class="bi bi-phone"></i> +91 9644231578
       </div>
       <div class="d-none d-lg-flex social-links align-items-center">
         <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
@@ -72,7 +80,7 @@
   <header id="header" class="fixed-top">
     <div class="container d-flex align-items-center">
 
-      <h1 class="logo me-auto" id="uname"><a href="index.html" >USER HOME</a></h1>
+      <h1 class="logo me-auto" id="uname"><a href="index.html" >PharmaSage</a></h1>
       <!-- Uncomment below if you prefer to use an image logo -->
       <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 
@@ -84,17 +92,44 @@
           <li><a class="nav-link scrollto" href="#departments">Departments</a></li>
           <li><a class="nav-link scrollto" href="#doctors">Doctors</a></li>
          <li class="dropdown"><a href="#"><span>Products</span> <i class="bi bi-chevron-down"></i></a>
-            <ul>
-             	  <li><a href="displayproductpaginationcontroller">Display Products</a></li>               
-                  <li><a href="cat1controller">Health Care</a></li>
-                  <li><a href="cat2controller">Nutritions</a></li>
-                  <li><a href="cat3controller">Personal Care</a></li>  
-            </ul>
+                        <ul>
+	                        <select class="form-control" id="categoryid" name="categoryid">
+	        					<%
+	        						CategoryDao daoImpl = new CategoryDaoImpl();
+                        			List<Category> lst = daoImpl.getAllCategories();
+                        			if(lst.size() > 0)
+                        			{
+                        				for(Category category : lst)
+                        				{
+                        		%>
+                        				<option value="<%=category.getCategoryId()%>"> <%=category.getCategoryName()%></option>
+                        		<%			
+                        				}
+                        			}
+	        					%>
+	      					</select>
+				<c:url var="categoryPageUrl" value="displayproductcategorywisecontroller">
+				    <c:param name="page" value="1" />
+				    <c:param name="categoryid" value="${selectedCategoryId}" />
+				</c:url>
+				
+				<script>
+			        window.onload = function() {
+			            var selectElement = document.getElementById("categoryid");
+			            selectElement.onchange = function() {
+			                var selectedCategoryId = this.value;
+							var url = "${categoryPageUrl}"+selectedCategoryId;
+			                window.location.href = url;
+			            };
+			        };
+			    </script>
+				</ul>
+
           </li>
           <li class="dropdown"><a href="#"><span>Profile</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
-                   <li><a href="viewordercontroller">View Orders</a></li>
-                   <li><a href="updateaddress">Update Address</a></li>
+                   <li><a href="viewyourordercontroller">View Orders</a></li>
+                   <li><a href="updateaddresscontroller">Update Address</a></li>
                    <li><a href = "userlogout.jsp">LOGOUT</a></li>
                 
             </ul>
@@ -117,8 +152,29 @@
   <!-- ======= Hero Section ======= -->
   <section id="hero" class="d-flex align-items-center">
     <div class="container">
-      <h1>Welcome to Pharmacy Store</h1>
-      <h2>We are team of talented designers making websites with Bootstrap</h2>
+    <c:if test="${param.msg == 'confirmSuccess'}">
+		<c:set var="message" value="Order confirmed successful !!!"/>
+	</c:if>
+	
+	<c:if test="${not empty message}">
+		<script>
+			if ("${message}" !== "") {
+				swal({
+					title: 'Message From Server',
+					text: '${message.trim()}',
+					icon: 'success'
+				});
+			}
+		</script>
+	</c:if>
+				
+				
+      <h1>Welcome to PharmaSage</h1>
+      <h2>Your trusted online pharmacy destination!
+      <br>
+      Discover a comprehensive range of pharmaceutical products, health supplements, 
+      and wellness essentials, all tailored to meet your healthcare needs.  
+      Start your journey to better health today!</h2>
       <a href="#about" class="btn-get-started scrollto">Get Started</a>
     </div>
   </section><!-- End Hero -->
@@ -387,8 +443,8 @@
 
         <div class="section-title">
           <h2>Departments</h2>
-          <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
-        </div>
+          <p>Here, you can explore our diverse range of departments, each dedicated to specific healthcare needs. Whether you're looking for medications, personal care products, vitamins and supplements, or specialized health solutions, our departments offer a curated selection of high-quality products. </p>
+         </div>
 
         <div class="row">
           <div class="col-lg-3">
@@ -416,8 +472,8 @@
                 <div class="row">
                   <div class="col-lg-8 details order-2 order-lg-1">
                     <h3>Cardiology</h3>
-                    <p class="fst-italic">Qui laudantium consequatur laborum sit qui ad sapiente dila parde sonata raqer a videna mareta paulona marka</p>
-                    <p>Et nobis maiores eius. Voluptatibus ut enim blanditiis atque harum sint. Laborum eos ipsum ipsa odit magni. Incidunt hic ut molestiae aut qui. Est repellat minima eveniet eius et quis magni nihil. Consequatur dolorem quaerat quos qui similique accusamus nostrum rem vero</p>
+                    <p class="fst-italic">Cardiology is a branch of medicine that deals with disorders of the heart and the cardiovascular system. </p>
+                    <p>The field includes medical diagnosis and treatment of congenital heart defects, coronary artery disease, heart failure, valvular heart disease, and electrophysiology.</p>
                   </div>
                   <div class="col-lg-4 text-center order-1 order-lg-2">
                     <img src="Homepage/img/departments-1.jpg" alt="" class="img-fluid">
@@ -427,9 +483,9 @@
               <div class="tab-pane" id="tab-2">
                 <div class="row">
                   <div class="col-lg-8 details order-2 order-lg-1">
-                    <h3>Et blanditiis nemo veritatis excepturi</h3>
-                    <p class="fst-italic">Qui laudantium consequatur laborum sit qui ad sapiente dila parde sonata raqer a videna mareta paulona marka</p>
-                    <p>Ea ipsum voluptatem consequatur quis est. Illum error ullam omnis quia et reiciendis sunt sunt est. Non aliquid repellendus itaque accusamus eius et velit ipsa voluptates. Optio nesciunt eaque beatae accusamus lerode pakto madirna desera vafle de nideran pal</p>
+                    <h3>Neurology</h3>
+                    <p class="fst-italic">Neurological practice relies heavily on the field of neuroscience, the scientific study of the nervous system.</p>
+                    <p>It is the branch of medicine dealing with the diagnosis and treatment of all categories of conditions and disease involving the nervous system, which comprises the brain, the spinal cord and the peripheral nerves.</p>
                   </div>
                   <div class="col-lg-4 text-center order-1 order-lg-2">
                     <img src="Homepage/img/departments-2.jpg" alt="" class="img-fluid">
@@ -439,9 +495,9 @@
               <div class="tab-pane" id="tab-3">
                 <div class="row">
                   <div class="col-lg-8 details order-2 order-lg-1">
-                    <h3>Impedit facilis occaecati odio neque aperiam sit</h3>
-                    <p class="fst-italic">Eos voluptatibus quo. Odio similique illum id quidem non enim fuga. Qui natus non sunt dicta dolor et. In asperiores velit quaerat perferendis aut</p>
-                    <p>Iure officiis odit rerum. Harum sequi eum illum corrupti culpa veritatis quisquam. Neque necessitatibus illo rerum eum ut. Commodi ipsam minima molestiae sed laboriosam a iste odio. Earum odit nesciunt fugiat sit ullam. Soluta et harum voluptatem optio quae</p>
+                    <h3>Oncology</h3>
+                    <p class="fst-italic">Oncology is a branch of medicine that deals with the study, treatment, diagnosis and prevention of tumors</p>
+                    <p>Medical histories remain an important screening tool: the character of the complaints and nonspecific symptoms (such as fatigue, weight loss, unexplained anemia, fever of unknown origin, paraneoplastic phenomena and other signs) may warrant further investigation for malignancy. </p>
                   </div>
                   <div class="col-lg-4 text-center order-1 order-lg-2">
                     <img src="Homepage/img/departments-3.jpg" alt="" class="img-fluid">
@@ -451,9 +507,9 @@
               <div class="tab-pane" id="tab-4">
                 <div class="row">
                   <div class="col-lg-8 details order-2 order-lg-1">
-                    <h3>Fuga dolores inventore laboriosam ut est accusamus laboriosam dolore</h3>
-                    <p class="fst-italic">Totam aperiam accusamus. Repellat consequuntur iure voluptas iure porro quis delectus</p>
-                    <p>Eaque consequuntur consequuntur libero expedita in voluptas. Nostrum ipsam necessitatibus aliquam fugiat debitis quis velit. Eum ex maxime error in consequatur corporis atque. Eligendi asperiores sed qui veritatis aperiam quia a laborum inventore</p>
+                    <h3>Dermatology</h3>
+                    <p class="fst-italic">Dermatology is the branch of medicine dealing with the skin</p>
+                    <p>It is a speciality with both medical and surgical aspects. A dermatologist is a specialist medical doctor who manages diseases related to skin, hair, nails, and some cosmetic problems.</p>
                   </div>
                   <div class="col-lg-4 text-center order-1 order-lg-2">
                     <img src="Homepage/img/departments-4.jpg" alt="" class="img-fluid">
@@ -463,9 +519,9 @@
               <div class="tab-pane" id="tab-5">
                 <div class="row">
                   <div class="col-lg-8 details order-2 order-lg-1">
-                    <h3>Est eveniet ipsam sindera pad rone matrelat sando reda</h3>
-                    <p class="fst-italic">Omnis blanditiis saepe eos autem qui sunt debitis porro quia.</p>
-                    <p>Exercitationem nostrum omnis. Ut reiciendis repudiandae minus. Omnis recusandae ut non quam ut quod eius qui. Ipsum quia odit vero atque qui quibusdam amet. Occaecati sed est sint aut vitae molestiae voluptate vel</p>
+                    <h3>Surgical Gastroenterology</h3>
+                    <p class="fst-italic">Surgical Gastroenterology is a super speciality that deals with the diagnosis and treatment of disorders of the gastrointestinal tract.</p>
+                    <p>It is a branch of medicine that is constantly evolving, with new discoveries being made all the time. </p>
                   </div>
                   <div class="col-lg-4 text-center order-1 order-lg-2">
                     <img src="Homepage/img/departments-5.jpg" alt="" class="img-fluid">
@@ -818,19 +874,19 @@
               <div class="address">
                 <i class="bi bi-geo-alt"></i>
                 <h4>Location:</h4>
-                <p>A108 Adam Street, New York, NY 535022</p>
+                <p>A108 Mndi Road, Dhamnod</p>
               </div>
 
               <div class="email">
                 <i class="bi bi-envelope"></i>
                 <h4>Email:</h4>
-                <p>info@example.com</p>
+                <p>703raksha@gmail.com</p>
               </div>
 
               <div class="phone">
                 <i class="bi bi-phone"></i>
                 <h4>Call:</h4>
-                <p>+1 5589 55488 55s</p>
+                <p>+91 9644547821</p>
               </div>
 
             </div>

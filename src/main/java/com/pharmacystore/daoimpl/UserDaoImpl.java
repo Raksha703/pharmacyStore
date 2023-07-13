@@ -147,4 +147,33 @@ public class UserDaoImpl implements UserDao {
 		}
 		
 	}
+	
+
+	@Override
+	public boolean searchUser(int uid) {
+		
+		try(Connection con = 
+				DbConnection.getDatabaseConnection())
+		{
+			
+			PreparedStatement pst = con.prepareStatement(
+			"SELECT * from user WHERE userid=?");
+			
+			pst.setInt(1, uid);
+			
+			int count = pst.executeUpdate();
+			
+			if(count>0) {
+				return true;
+			}
+			
+			return false;
+		}
+		catch(NullPointerException | SQLException
+				 exc) {
+			exc.printStackTrace();
+			return false;
+		}
+		
+	}
 }
